@@ -12,10 +12,15 @@ export type TestimonialRow = Tables<"testimonials">;
 export type GalleryRow = Tables<"gallery">;
 export type MessageRow = Tables<"messages">;
 
-async function unwrap<T>(p: PromiseLike<{ data: T | null; error: unknown }>): Promise<T> {
-  const { data, error } = await p;
+async function unwrap<T>(p: PromiseLike<{ data: T | null; error: unknown }>): Promise<T | null> {
+  const { data, error } = (await p) as { data: T | null; error: unknown };
   if (error) throw error;
-  return data as T;
+  return data;
+}
+async function unwrapList<T>(p: PromiseLike<{ data: T[] | null; error: unknown }>): Promise<T[]> {
+  const { data, error } = (await p) as { data: T[] | null; error: unknown };
+  if (error) throw error;
+  return data ?? [];
 }
 
 export const profileQuery = queryOptions({
