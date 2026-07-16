@@ -136,7 +136,7 @@ export function ServicesSection({ services }: { services: ServiceRow[] }) {
         <SectionHeader eyebrow="What I Do" title="Services" subtitle="End-to-end product development, from first sketch to production." />
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => {
-            const Icon = (s.icon && ICONS[s.icon]) ?? Zap;
+            const Icon = (s.icon ? ICONS[s.icon] : null) ?? Zap;
             return (
               <div
                 key={s.id}
