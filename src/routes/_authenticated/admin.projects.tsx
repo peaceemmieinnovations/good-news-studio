@@ -132,7 +132,7 @@ function ProjectsAdmin() {
                   {["Completed","In Progress","Concept"].map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </Field>
-              <Field label="Cover image URL"><Input value={editing.cover_url ?? ""} onChange={(e) => setEditing({ ...editing, cover_url: e.target.value })} placeholder="https://…" /></Field>
+              <div className="sm:col-span-2"><Field label="Cover image"><FileUpload value={editing.cover_url} onChange={(u) => setEditing({ ...editing, cover_url: u })} folder="projects" /></Field></div>
               <Field label="GitHub"><Input value={editing.github_url ?? ""} onChange={(e) => setEditing({ ...editing, github_url: e.target.value })} placeholder="https://github.com/…" /></Field>
               <Field label="Live URL"><Input value={editing.live_url ?? ""} onChange={(e) => setEditing({ ...editing, live_url: e.target.value })} placeholder="https://…" /></Field>
               <Field label="Client"><Input value={editing.client ?? ""} onChange={(e) => setEditing({ ...editing, client: e.target.value })} /></Field>
