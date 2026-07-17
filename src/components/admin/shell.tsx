@@ -65,7 +65,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             return (
               <Link
                 key={n.to}
-                to={n.to}
+                to={n.to as never}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition",
                   active ? "bg-gradient-primary text-primary-foreground shadow-glow" : "hover:bg-surface text-muted-foreground hover:text-foreground"
