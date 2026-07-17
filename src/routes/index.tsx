@@ -1,24 +1,49 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import {
+  profileQuery, servicesQuery, skillsQuery, featuredProjectsQuery,
+  testimonialsQuery, appsQuery, blogPostsQuery,
+} from "@/lib/queries";
+import { SiteLayout } from "@/components/site/layout";
+import {
+  Hero, ServicesSection, SkillsSection, ProjectsSection,
+  TestimonialsSection, AppsPreview, BlogPreview, CtaSection,
+} from "@/components/site/sections";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(profileQuery),
+      context.queryClient.ensureQueryData(servicesQuery),
+      context.queryClient.ensureQueryData(skillsQuery),
+      context.queryClient.ensureQueryData(featuredProjectsQuery),
+      context.queryClient.ensureQueryData(testimonialsQuery),
+      context.queryClient.ensureQueryData(appsQuery),
+      context.queryClient.ensureQueryData(blogPostsQuery),
+    ]);
+  },
+  component: HomePage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function HomePage() {
+  const { data: profile } = useSuspenseQuery(profileQuery);
+  const { data: services } = useSuspenseQuery(servicesQuery);
+  const { data: skills } = useSuspenseQuery(skillsQuery);
+  const { data: projects } = useSuspenseQuery(featuredProjectsQuery);
+  const { data: testimonials } = useSuspenseQuery(testimonialsQuery);
+  const { data: apps } = useSuspenseQuery(appsQuery);
+  const { data: posts } = useSuspenseQuery(blogPostsQuery);
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <SiteLayout profile={profile}>
+      <Hero profile={profile} />
+      <ServicesSection services={services ?? []} />
+      <SkillsSection skills={skills ?? []} />
+      <ProjectsSection projects={projects ?? []} />
+      <AppsPreview apps={apps ?? []} />
+      <TestimonialsSection items={testimonials ?? []} />
+      <BlogPreview posts={posts ?? []} />
+      <CtaSection />
+    </SiteLayout>
   );
 }
