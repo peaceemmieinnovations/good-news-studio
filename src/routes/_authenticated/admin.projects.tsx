@@ -148,8 +148,8 @@ function ProjectsAdmin() {
                 </Field>
               </div>
               <div className="sm:col-span-2">
-                <Field label="Gallery image URLs">
-                  <TagsInput value={editing.images ?? []} onChange={(v) => setEditing({ ...editing, images: v })} placeholder="Paste URL and press Enter" />
+                <Field label="Gallery images">
+                  <MultiImageUpload value={editing.images ?? []} onChange={(v) => setEditing({ ...editing, images: v })} folder="projects" />
                 </Field>
               </div>
               <label className="flex items-center gap-2 text-sm">
