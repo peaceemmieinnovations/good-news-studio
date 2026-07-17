@@ -50,7 +50,7 @@ function PostDetail() {
           </div>
           {p.tags.length > 0 && (
             <div className="mt-10 flex flex-wrap gap-2">
-              {p.tags.map((t) => (
+              {p.tags.map((t: string) => (
                 <span key={t} className="rounded-lg glass px-3 py-1.5 text-xs">#{t}</span>
               ))}
             </div>

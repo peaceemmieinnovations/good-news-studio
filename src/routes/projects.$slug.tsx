@@ -76,7 +76,7 @@ function ProjectDetail() {
             <div className="mt-10">
               <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Built with</h3>
               <div className="mt-3 flex flex-wrap gap-2">
-                {p.technologies.map((t) => (
+                {p.technologies.map((t: string) => (
                   <span key={t} className="rounded-lg glass px-3 py-1.5 text-sm">{t}</span>
                 ))}
               </div>
@@ -85,7 +85,7 @@ function ProjectDetail() {
 
           {p.images.length > 0 && (
             <div className="mt-12 grid gap-4 sm:grid-cols-2">
-              {p.images.map((src) => (
+              {p.images.map((src: string) => (
                 <img key={src} src={src} alt="" className="rounded-2xl w-full aspect-video object-cover shadow-card" />
               ))}
             </div>

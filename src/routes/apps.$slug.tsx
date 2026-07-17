@@ -1,4 +1,5 @@
-import { createFileRoute, notFound, Link, useServerFn } from "@tanstack/react-router";
+import { createFileRoute, notFound, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { profileQuery, appBySlugQuery } from "@/lib/queries";
 import { SiteLayout } from "@/components/site/layout";
@@ -120,7 +121,7 @@ function AppDetail() {
             <div className="mt-10">
               <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold">Features</h3>
               <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-                {a.features.map((f) => (
+                {a.features.map((f: string) => (
                   <li key={f} className="flex items-start gap-2 rounded-xl glass p-3">
                     <Check className="h-4 w-4 mt-0.5 text-accent shrink-0" />
                     <span className="text-sm">{f}</span>
@@ -141,7 +142,7 @@ function AppDetail() {
             <div className="mt-10">
               <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold">Screenshots</h3>
               <div className="mt-4 flex gap-4 overflow-x-auto pb-4">
-                {a.screenshots.map((s) => (
+                {a.screenshots.map((s: string) => (
                   <img key={s} src={s} alt="" className="h-96 w-auto rounded-2xl shadow-card shrink-0" />
                 ))}
               </div>
