@@ -3,6 +3,7 @@ import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { profileQuery, type ProfileRow } from "@/lib/queries";
 import { AdminShell } from "@/components/admin/shell";
 import { AdminPageHeader, AdminCard, Field, Input, Textarea, Button } from "@/components/admin/ui";
+import { FileUpload } from "@/components/admin/file-upload";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -84,9 +85,9 @@ function ProfileAdmin() {
               <Field label="Phone"><Input value={form.phone ?? ""} onChange={(e) => set("phone", e.target.value)} /></Field>
               <Field label="WhatsApp"><Input value={form.whatsapp ?? ""} onChange={(e) => set("whatsapp", e.target.value)} /></Field>
               <Field label="Address"><Input value={form.address ?? ""} onChange={(e) => set("address", e.target.value)} /></Field>
-              <Field label="CV / Resume URL"><Input value={form.cv_url ?? ""} onChange={(e) => set("cv_url", e.target.value)} placeholder="https://…" /></Field>
-              <Field label="Photo URL"><Input value={form.photo_url ?? ""} onChange={(e) => set("photo_url", e.target.value)} placeholder="https://…" /></Field>
-              <Field label="Cover URL"><Input value={form.cover_url ?? ""} onChange={(e) => set("cover_url", e.target.value)} placeholder="https://…" /></Field>
+              <Field label="CV / Resume file"><FileUpload value={form.cv_url} onChange={(u) => set("cv_url", u)} accept=".pdf,application/pdf" folder="cv" preview="file" label="Upload CV (PDF)" /></Field>
+              <Field label="Profile photo"><FileUpload value={form.photo_url} onChange={(u) => set("photo_url", u)} folder="profile" /></Field>
+              <Field label="Cover image"><FileUpload value={form.cover_url} onChange={(u) => set("cover_url", u)} folder="profile" /></Field>
             </div>
           </AdminCard>
 

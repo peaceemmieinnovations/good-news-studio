@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { AdminShell } from "@/components/admin/shell";
 import { AdminPageHeader, AdminCard, Field, Input, Textarea, Button, TagsInput, SlugFromTitle } from "@/components/admin/ui";
+import { FileUpload } from "@/components/admin/file-upload";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -97,7 +98,7 @@ function BlogAdmin() {
               <Field label="Slug"><Input value={editing.slug ?? ""} onChange={(e) => setEditing({ ...editing, slug: e.target.value })} /></Field>
               <Field label="Category"><Input value={editing.category ?? ""} onChange={(e) => setEditing({ ...editing, category: e.target.value })} /></Field>
               <Field label="Read time (min)"><Input type="number" value={editing.read_minutes ?? 5} onChange={(e) => setEditing({ ...editing, read_minutes: Number(e.target.value) })} /></Field>
-              <div className="sm:col-span-2"><Field label="Cover URL"><Input value={editing.cover_url ?? ""} onChange={(e) => setEditing({ ...editing, cover_url: e.target.value })} placeholder="https://…" /></Field></div>
+              <div className="sm:col-span-2"><Field label="Cover image"><FileUpload value={editing.cover_url} onChange={(u) => setEditing({ ...editing, cover_url: u })} folder="blog" /></Field></div>
               <div className="sm:col-span-2"><Field label="Excerpt"><Textarea rows={2} value={editing.excerpt ?? ""} onChange={(e) => setEditing({ ...editing, excerpt: e.target.value })} /></Field></div>
               <div className="sm:col-span-2"><Field label="Content (Markdown supported)"><Textarea rows={12} value={editing.content ?? ""} onChange={(e) => setEditing({ ...editing, content: e.target.value })} /></Field></div>
               <div className="sm:col-span-2"><Field label="Tags"><TagsInput value={editing.tags ?? []} onChange={(v) => setEditing({ ...editing, tags: v })} /></Field></div>

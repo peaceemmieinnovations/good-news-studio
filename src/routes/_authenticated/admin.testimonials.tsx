@@ -3,6 +3,7 @@ import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { testimonialsQuery, type TestimonialRow } from "@/lib/queries";
 import { AdminShell } from "@/components/admin/shell";
 import { AdminPageHeader, AdminCard, Field, Input, Textarea, Button } from "@/components/admin/ui";
+import { FileUpload } from "@/components/admin/file-upload";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -83,7 +84,7 @@ function TestimonialsAdmin() {
               <Field label="Role"><Input value={editing.role ?? ""} onChange={(e) => setEditing({ ...editing, role: e.target.value })} /></Field>
               <Field label="Company"><Input value={editing.company ?? ""} onChange={(e) => setEditing({ ...editing, company: e.target.value })} /></Field>
               <Field label="Country"><Input value={editing.country ?? ""} onChange={(e) => setEditing({ ...editing, country: e.target.value })} /></Field>
-              <Field label="Photo URL"><Input value={editing.photo_url ?? ""} onChange={(e) => setEditing({ ...editing, photo_url: e.target.value })} /></Field>
+              <Field label="Photo"><FileUpload value={editing.photo_url} onChange={(u) => setEditing({ ...editing, photo_url: u })} folder="testimonials" /></Field>
               <Field label="Rating (1-5)"><Input type="number" min={1} max={5} value={editing.rating ?? 5} onChange={(e) => setEditing({ ...editing, rating: Number(e.target.value) })} /></Field>
               <div className="sm:col-span-2"><Field label="Message"><Textarea rows={4} value={editing.message ?? ""} onChange={(e) => setEditing({ ...editing, message: e.target.value })} /></Field></div>
               <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={editing.is_approved ?? true} onChange={(e) => setEditing({ ...editing, is_approved: e.target.checked })} /> Approved</label>

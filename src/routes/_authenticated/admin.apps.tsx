@@ -3,6 +3,7 @@ import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { appsQuery, type AppRow } from "@/lib/queries";
 import { AdminShell } from "@/components/admin/shell";
 import { AdminPageHeader, AdminCard, Field, Input, Textarea, Button, TagsInput, SlugFromTitle } from "@/components/admin/ui";
+import { FileUpload, MultiImageUpload } from "@/components/admin/file-upload";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -124,12 +125,20 @@ function AppsAdmin() {
               <Field label="Slug"><Input value={editing.slug ?? ""} onChange={(e) => setEditing({ ...editing, slug: e.target.value })} /></Field>
               <Field label="Tagline"><Input value={editing.tagline ?? ""} onChange={(e) => setEditing({ ...editing, tagline: e.target.value })} /></Field>
               <Field label="Version"><Input value={editing.version ?? ""} onChange={(e) => setEditing({ ...editing, version: e.target.value })} /></Field>
-              <Field label="Logo URL"><Input value={editing.logo_url ?? ""} onChange={(e) => setEditing({ ...editing, logo_url: e.target.value })} placeholder="https://…" /></Field>
-              <Field label="Banner URL"><Input value={editing.banner_url ?? ""} onChange={(e) => setEditing({ ...editing, banner_url: e.target.value })} placeholder="https://…" /></Field>
-              <Field label="APK URL" hint="Direct link to your .apk file (host on GitHub Releases, S3, Cloudinary, etc.)">
-                <Input value={editing.apk_url ?? ""} onChange={(e) => setEditing({ ...editing, apk_url: e.target.value })} placeholder="https://…/app.apk" />
-              </Field>
-              <Field label="APK size (bytes)"><Input type="number" value={editing.apk_size_bytes ?? ""} onChange={(e) => setEditing({ ...editing, apk_size_bytes: Number(e.target.value) })} /></Field>
+              <div className="sm:col-span-2"><Field label="Logo image"><FileUpload value={editing.logo_url} onChange={(u) => setEditing({ ...editing, logo_url: u })} folder="apps" /></Field></div>
+              <div className="sm:col-span-2"><Field label="Banner image"><FileUpload value={editing.banner_url} onChange={(u) => setEditing({ ...editing, banner_url: u })} folder="apps" /></Field></div>
+              <div className="sm:col-span-2">
+                <Field label="APK file" hint="Upload your Android .apk directly">
+                  <FileUpload
+                    value={editing.apk_url}
+                    onChange={(u) => setEditing({ ...editing, apk_url: u })}
+                    accept=".apk,application/vnd.android.package-archive"
+                    folder="apks"
+                    preview="file"
+                    label="Upload APK"
+                  />
+                </Field>
+              </div>
               <Field label="Play Store URL"><Input value={editing.play_store_url ?? ""} onChange={(e) => setEditing({ ...editing, play_store_url: e.target.value })} placeholder="https://play.google.com/…" /></Field>
               <Field label="Website URL"><Input value={editing.website_url ?? ""} onChange={(e) => setEditing({ ...editing, website_url: e.target.value })} placeholder="https://…" /></Field>
               <Field label="Requirements"><Input value={editing.requirements ?? ""} onChange={(e) => setEditing({ ...editing, requirements: e.target.value })} /></Field>
@@ -144,7 +153,7 @@ function AppsAdmin() {
                 <Field label="Features"><TagsInput value={editing.features ?? []} onChange={(v) => setEditing({ ...editing, features: v })} /></Field>
               </div>
               <div className="sm:col-span-2">
-                <Field label="Screenshots URLs"><TagsInput value={editing.screenshots ?? []} onChange={(v) => setEditing({ ...editing, screenshots: v })} /></Field>
+                <Field label="Screenshots"><MultiImageUpload value={editing.screenshots ?? []} onChange={(v) => setEditing({ ...editing, screenshots: v })} folder="apps/screens" /></Field>
               </div>
               <label className="flex items-center gap-2 text-sm">
                 <input type="checkbox" checked={editing.is_visible ?? true} onChange={(e) => setEditing({ ...editing, is_visible: e.target.checked })} /> Visible on site
