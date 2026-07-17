@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-const nav = [
+const nav: { to: string; label: string; icon: React.ComponentType<{ className?: string }>; exact?: boolean }[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/profile", label: "Profile", icon: User },
   { to: "/admin/projects", label: "Projects", icon: Briefcase },
@@ -20,7 +20,7 @@ const nav = [
   { to: "/admin/testimonials", label: "Testimonials", icon: Star },
   { to: "/admin/gallery", label: "Gallery", icon: ImageIcon },
   { to: "/admin/messages", label: "Messages", icon: MessageSquare },
-] as const;
+];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
