@@ -12,84 +12,127 @@ export type TestimonialRow = Tables<"testimonials">;
 export type GalleryRow = Tables<"gallery">;
 export type MessageRow = Tables<"messages">;
 
-async function unwrap<T>(p: PromiseLike<{ data: T | null; error: unknown }>): Promise<T | null> {
-  const { data, error } = (await p) as { data: T | null; error: unknown };
-  if (error) throw error;
-  return data;
-}
-async function unwrapList<T>(p: PromiseLike<{ data: T[] | null; error: unknown }>): Promise<T[]> {
-  const { data, error } = (await p) as { data: T[] | null; error: unknown };
-  if (error) throw error;
-  return data ?? [];
-}
+function throwIf(error: unknown) { if (error) throw error; }
 
 export const profileQuery = queryOptions({
   queryKey: ["profile"],
-  queryFn: () => unwrap(supabase.from("profile").select("*").limit(1).maybeSingle()),
+  queryFn: async (): Promise<ProfileRow | null> => {
+    const { data, error } = await supabase.from("profile").select("*").limit(1).maybeSingle();
+    throwIf(error);
+    return data as ProfileRow | null;
+  },
 });
 
 export const servicesQuery = queryOptions({
   queryKey: ["services"],
-  queryFn: () => unwrap(supabase.from("services").select("*").order("sort_order")),
+  queryFn: async (): Promise<ServiceRow[]> => {
+    const { data, error } = await supabase.from("services").select("*").order("sort_order");
+    throwIf(error);
+    return (data ?? []) as ServiceRow[];
+  },
 });
 
 export const skillsQuery = queryOptions({
   queryKey: ["skills"],
-  queryFn: () => unwrap(supabase.from("skills").select("*").order("sort_order")),
+  queryFn: async (): Promise<SkillRow[]> => {
+    const { data, error } = await supabase.from("skills").select("*").order("sort_order");
+    throwIf(error);
+    return (data ?? []) as SkillRow[];
+  },
 });
 
 export const projectsQuery = queryOptions({
   queryKey: ["projects"],
-  queryFn: () => unwrap(supabase.from("projects").select("*").order("sort_order").order("created_at", { ascending: false })),
+  queryFn: async (): Promise<ProjectRow[]> => {
+    const { data, error } = await supabase.from("projects").select("*").order("sort_order").order("created_at", { ascending: false });
+    throwIf(error);
+    return (data ?? []) as ProjectRow[];
+  },
 });
 
 export const featuredProjectsQuery = queryOptions({
   queryKey: ["projects", "featured"],
-  queryFn: () => unwrap(supabase.from("projects").select("*").eq("is_featured", true).order("sort_order")),
+  queryFn: async (): Promise<ProjectRow[]> => {
+    const { data, error } = await supabase.from("projects").select("*").eq("is_featured", true).order("sort_order");
+    throwIf(error);
+    return (data ?? []) as ProjectRow[];
+  },
 });
 
 export const appsQuery = queryOptions({
   queryKey: ["apps"],
-  queryFn: () => unwrap(supabase.from("apps").select("*").order("created_at", { ascending: false })),
+  queryFn: async (): Promise<AppRow[]> => {
+    const { data, error } = await supabase.from("apps").select("*").order("created_at", { ascending: false });
+    throwIf(error);
+    return (data ?? []) as AppRow[];
+  },
 });
 
 export const blogPostsQuery = queryOptions({
   queryKey: ["blog"],
-  queryFn: () => unwrap(supabase.from("blog_posts").select("*").eq("is_published", true).order("published_at", { ascending: false })),
+  queryFn: async (): Promise<BlogPostRow[]> => {
+    const { data, error } = await supabase.from("blog_posts").select("*").eq("is_published", true).order("published_at", { ascending: false });
+    throwIf(error);
+    return (data ?? []) as BlogPostRow[];
+  },
 });
 
 export const testimonialsQuery = queryOptions({
   queryKey: ["testimonials"],
-  queryFn: () => unwrap(supabase.from("testimonials").select("*").order("sort_order")),
+  queryFn: async (): Promise<TestimonialRow[]> => {
+    const { data, error } = await supabase.from("testimonials").select("*").order("sort_order");
+    throwIf(error);
+    return (data ?? []) as TestimonialRow[];
+  },
 });
 
 export const galleryQuery = queryOptions({
   queryKey: ["gallery"],
-  queryFn: () => unwrap(supabase.from("gallery").select("*").order("sort_order")),
+  queryFn: async (): Promise<GalleryRow[]> => {
+    const { data, error } = await supabase.from("gallery").select("*").order("sort_order");
+    throwIf(error);
+    return (data ?? []) as GalleryRow[];
+  },
 });
 
 export function projectBySlugQuery(slug: string) {
   return queryOptions({
     queryKey: ["projects", slug],
-    queryFn: () => unwrap(supabase.from("projects").select("*").eq("slug", slug).maybeSingle()),
+    queryFn: async (): Promise<ProjectRow | null> => {
+      const { data, error } = await supabase.from("projects").select("*").eq("slug", slug).maybeSingle();
+      throwIf(error);
+      return data as ProjectRow | null;
+    },
   });
 }
 
 export function appBySlugQuery(slug: string) {
   return queryOptions({
     queryKey: ["apps", slug],
-    queryFn: () => unwrap(supabase.from("apps").select("*").eq("slug", slug).maybeSingle()),
+    queryFn: async (): Promise<AppRow | null> => {
+      const { data, error } = await supabase.from("apps").select("*").eq("slug", slug).maybeSingle();
+      throwIf(error);
+      return data as AppRow | null;
+    },
   });
 }
 
 export function blogBySlugQuery(slug: string) {
   return queryOptions({
     queryKey: ["blog", slug],
-    queryFn: () => unwrap(supabase.from("blog_posts").select("*").eq("slug", slug).maybeSingle()),
+    queryFn: async (): Promise<BlogPostRow | null> => {
+      const { data, error } = await supabase.from("blog_posts").select("*").eq("slug", slug).maybeSingle();
+      throwIf(error);
+      return data as BlogPostRow | null;
+    },
   });
 }
 
 export const messagesQuery = queryOptions({
   queryKey: ["messages"],
-  queryFn: () => unwrap(supabase.from("messages").select("*").order("created_at", { ascending: false })),
+  queryFn: async (): Promise<MessageRow[]> => {
+    const { data, error } = await supabase.from("messages").select("*").order("created_at", { ascending: false });
+    throwIf(error);
+    return (data ?? []) as MessageRow[];
+  },
 });
