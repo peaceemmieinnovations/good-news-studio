@@ -3,6 +3,7 @@ import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { testimonialsQuery, type TestimonialRow } from "@/lib/queries";
 import { AdminShell } from "@/components/admin/shell";
 import { AdminPageHeader, AdminCard, Field, Input, Textarea, Button } from "@/components/admin/ui";
+import { FileUpload } from "@/components/admin/file-upload";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { toast } from "sonner";
