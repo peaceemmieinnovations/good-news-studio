@@ -50,7 +50,7 @@ export function Hero({ profile }: { profile: ProfileRow | null }) {
 
   return (
     <section className="relative overflow-hidden pt-8 pb-20">
-      <div className="absolute inset-0 grid-bg pointer-events-none" />
+      
 
       {/* floating orbs */}
       <div className="absolute top-20 -left-20 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-float" />
@@ -138,23 +138,28 @@ export function ServicesSection({ services }: { services: ServiceRow[] }) {
           {services.map((s, i) => {
             const Icon = (s.icon ? ICONS[s.icon] : null) ?? Zap;
             return (
-              <div
+              <Link
+                to="/services/$id"
+                params={{ id: s.id }}
                 key={s.id}
-                className="group rounded-2xl bg-gradient-card border border-border/60 p-6 card-hover animate-fade-up"
+                className="group rounded-2xl bg-gradient-card border border-border/60 p-6 card-hover animate-fade-up block"
                 style={{ animationDelay: `${i * 60}ms` }}
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-primary shadow-glow group-hover:animate-glow-pulse">
                   <Icon className="h-5 w-5 text-primary-foreground" />
                 </div>
-                <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.description}</p>
+                <h3 className="mt-5 text-lg font-semibold group-hover:text-gradient transition">{s.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-3">{s.description}</p>
                 {s.price && (
                   <div className="mt-4 pt-4 border-t border-border/40 flex items-center justify-between text-sm">
                     <span className="text-muted-foreground">Starting at</span>
                     <span className="font-semibold text-gradient">{s.price}</span>
                   </div>
                 )}
-              </div>
+                <div className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition">
+                  Learn more <ArrowRight className="h-3 w-3" />
+                </div>
+              </Link>
             );
           })}
         </div>

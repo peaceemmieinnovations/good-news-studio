@@ -19,6 +19,7 @@ import { Route as AppsRouteImport } from './routes/apps'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServicesIdRouteImport } from './routes/services.$id'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AppsSlugRouteImport } from './routes/apps.$slug'
@@ -33,6 +34,7 @@ import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminGalleryRouteImport } from './routes/_authenticated/admin.gallery'
 import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
 import { Route as AuthenticatedAdminAppsRouteImport } from './routes/_authenticated/admin.apps'
+import { Route as AuthenticatedAdminAiRouteImport } from './routes/_authenticated/admin.ai'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -82,6 +84,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesIdRoute = ServicesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ServicesRoute,
 } as any)
 const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   id: '/$slug',
@@ -160,6 +167,11 @@ const AuthenticatedAdminAppsRoute = AuthenticatedAdminAppsRouteImport.update({
   path: '/apps',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminAiRoute = AuthenticatedAdminAiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -169,12 +181,14 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/projects': typeof ProjectsRouteWithChildren
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/apps/$slug': typeof AppsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/services/$id': typeof ServicesIdRoute
+  '/admin/ai': typeof AuthenticatedAdminAiRoute
   '/admin/apps': typeof AuthenticatedAdminAppsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
@@ -194,12 +208,14 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/projects': typeof ProjectsRouteWithChildren
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/apps/$slug': typeof AppsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/services/$id': typeof ServicesIdRoute
+  '/admin/ai': typeof AuthenticatedAdminAiRoute
   '/admin/apps': typeof AuthenticatedAdminAppsRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
@@ -221,12 +237,14 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/projects': typeof ProjectsRouteWithChildren
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/apps/$slug': typeof AppsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/services/$id': typeof ServicesIdRoute
+  '/_authenticated/admin/ai': typeof AuthenticatedAdminAiRoute
   '/_authenticated/admin/apps': typeof AuthenticatedAdminAppsRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/_authenticated/admin/gallery': typeof AuthenticatedAdminGalleryRoute
@@ -254,6 +272,8 @@ export interface FileRouteTypes {
     | '/apps/$slug'
     | '/blog/$slug'
     | '/projects/$slug'
+    | '/services/$id'
+    | '/admin/ai'
     | '/admin/apps'
     | '/admin/blog'
     | '/admin/gallery'
@@ -279,6 +299,8 @@ export interface FileRouteTypes {
     | '/apps/$slug'
     | '/blog/$slug'
     | '/projects/$slug'
+    | '/services/$id'
+    | '/admin/ai'
     | '/admin/apps'
     | '/admin/blog'
     | '/admin/gallery'
@@ -305,6 +327,8 @@ export interface FileRouteTypes {
     | '/apps/$slug'
     | '/blog/$slug'
     | '/projects/$slug'
+    | '/services/$id'
+    | '/_authenticated/admin/ai'
     | '/_authenticated/admin/apps'
     | '/_authenticated/admin/blog'
     | '/_authenticated/admin/gallery'
@@ -326,7 +350,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
-  ServicesRoute: typeof ServicesRoute
+  ServicesRoute: typeof ServicesRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -401,6 +425,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/services/$id': {
+      id: '/services/$id'
+      path: '/$id'
+      fullPath: '/services/$id'
+      preLoaderRoute: typeof ServicesIdRouteImport
+      parentRoute: typeof ServicesRoute
     }
     '/projects/$slug': {
       id: '/projects/$slug'
@@ -500,10 +531,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminAppsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/ai': {
+      id: '/_authenticated/admin/ai'
+      path: '/ai'
+      fullPath: '/admin/ai'
+      preLoaderRoute: typeof AuthenticatedAdminAiRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAiRoute: typeof AuthenticatedAdminAiRoute
   AuthenticatedAdminAppsRoute: typeof AuthenticatedAdminAppsRoute
   AuthenticatedAdminBlogRoute: typeof AuthenticatedAdminBlogRoute
   AuthenticatedAdminGalleryRoute: typeof AuthenticatedAdminGalleryRoute
@@ -517,6 +556,7 @@ interface AuthenticatedAdminRouteChildren {
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAiRoute: AuthenticatedAdminAiRoute,
   AuthenticatedAdminAppsRoute: AuthenticatedAdminAppsRoute,
   AuthenticatedAdminBlogRoute: AuthenticatedAdminBlogRoute,
   AuthenticatedAdminGalleryRoute: AuthenticatedAdminGalleryRoute,
@@ -575,6 +615,18 @@ const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
   ProjectsRouteChildren,
 )
 
+interface ServicesRouteChildren {
+  ServicesIdRoute: typeof ServicesIdRoute
+}
+
+const ServicesRouteChildren: ServicesRouteChildren = {
+  ServicesIdRoute: ServicesIdRoute,
+}
+
+const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
+  ServicesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -584,7 +636,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
-  ServicesRoute: ServicesRoute,
+  ServicesRoute: ServicesRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport

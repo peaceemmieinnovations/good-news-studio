@@ -2,7 +2,7 @@ import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   LayoutDashboard, User, Briefcase, Smartphone, Wrench, Award,
-  Image as ImageIcon, FileText, MessageSquare, Star, LogOut, Menu, X, Code2, Users,
+  Image as ImageIcon, FileText, MessageSquare, Star, LogOut, Menu, X, Code2, Users, Sparkles,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -21,6 +21,7 @@ const nav: { to: string; label: string; icon: React.ComponentType<{ className?: 
   { to: "/admin/gallery", label: "Gallery", icon: ImageIcon },
   { to: "/admin/messages", label: "Messages", icon: MessageSquare },
   { to: "/admin/users", label: "Users", icon: Users },
+  { to: "/admin/ai", label: "AI Assistant", icon: Sparkles },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
@@ -52,9 +53,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       )}>
         <div className="h-16 flex items-center justify-between px-5 border-b border-border/60">
           <Link to="/" className="flex items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-primary shadow-glow">
-              <Code2 className="h-4 w-4 text-primary-foreground" />
-            </div>
+            <img src="/favicon.png" alt="Good News" className="h-8 w-8 rounded-lg drop-shadow-[0_0_10px_oklch(0.65_0.24_275/0.5)]" />
             <span className="font-[family-name:var(--font-display)] font-bold">Admin</span>
           </Link>
           <button className="lg:hidden p-2" onClick={() => setOpen(false)}><X className="h-4 w-4" /></button>
