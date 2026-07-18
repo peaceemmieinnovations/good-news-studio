@@ -35,7 +35,7 @@ function DashboardPage() {
     { label: "Blog Posts", value: posts.data?.length ?? 0, icon: FileText, to: "/admin/blog" },
     { label: "Testimonials", value: testimonials.data?.length ?? 0, icon: Star, to: "/admin/testimonials" },
     { label: "Messages", value: messages.data?.length ?? 0, icon: MessageSquare, to: "/admin/messages", badge: unread },
-    { label: "APK Downloads", value: totalDownloads, icon: Download },
+    { label: "APK Downloads", value: totalDownloads, icon: Download, to: "/admin/apps" },
   ] as const;
 
   return (
@@ -60,10 +60,8 @@ function DashboardPage() {
               <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">{s.label}</div>
             </AdminCard>
           );
-          return "to" in s && s.to ? (
+          return (
             <Link key={s.label} to={s.to}>{content}</Link>
-          ) : (
-            <div key={s.label}>{content}</div>
           );
         })}
       </div>
