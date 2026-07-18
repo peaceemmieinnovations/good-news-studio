@@ -106,6 +106,17 @@ export function projectBySlugQuery(slug: string) {
   });
 }
 
+export function serviceByIdQuery(id: string) {
+  return queryOptions({
+    queryKey: ["services", id],
+    queryFn: async (): Promise<ServiceRow | null> => {
+      const { data, error } = await supabase.from("services").select("*").eq("id", id).maybeSingle();
+      throwIf(error);
+      return data as ServiceRow | null;
+    },
+  });
+}
+
 export function appBySlugQuery(slug: string) {
   return queryOptions({
     queryKey: ["apps", slug],
