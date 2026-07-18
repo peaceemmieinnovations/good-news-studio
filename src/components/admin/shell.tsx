@@ -20,6 +20,7 @@ const nav: { to: string; label: string; icon: React.ComponentType<{ className?: 
   { to: "/admin/testimonials", label: "Testimonials", icon: Star },
   { to: "/admin/gallery", label: "Gallery", icon: ImageIcon },
   { to: "/admin/messages", label: "Messages", icon: MessageSquare },
+  { to: "/admin/users", label: "Users", icon: Users },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
