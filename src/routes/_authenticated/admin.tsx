@@ -60,10 +60,8 @@ function DashboardPage() {
               <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">{s.label}</div>
             </AdminCard>
           );
-          return "to" in s && s.to ? (
+          return (
             <Link key={s.label} to={s.to}>{content}</Link>
-          ) : (
-            <div key={s.label}>{content}</div>
           );
         })}
       </div>
