@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Github, Linkedin, Twitter, Instagram, Mail, Code2 } from "lucide-react";
+import { Github, Linkedin, Twitter, Instagram, Mail } from "lucide-react";
 import type { ProfileRow } from "@/lib/queries";
 
 export function SiteFooter({ profile }: { profile?: ProfileRow | null }) {
