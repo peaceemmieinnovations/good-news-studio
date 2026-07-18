@@ -23,6 +23,7 @@ import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AppsSlugRouteImport } from './routes/apps.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as AuthenticatedAdminTestimonialsRouteImport } from './routes/_authenticated/admin.testimonials'
 import { Route as AuthenticatedAdminSkillsRouteImport } from './routes/_authenticated/admin.skills'
 import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin.services'
@@ -102,6 +103,11 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminTestimonialsRoute =
   AuthenticatedAdminTestimonialsRouteImport.update({
     id: '/testimonials',
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/admin/services': typeof AuthenticatedAdminServicesRoute
   '/admin/skills': typeof AuthenticatedAdminSkillsRoute
   '/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/admin/services': typeof AuthenticatedAdminServicesRoute
   '/admin/skills': typeof AuthenticatedAdminSkillsRoute
   '/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -228,6 +236,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
   '/_authenticated/admin/skills': typeof AuthenticatedAdminSkillsRoute
   '/_authenticated/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -254,6 +263,7 @@ export interface FileRouteTypes {
     | '/admin/services'
     | '/admin/skills'
     | '/admin/testimonials'
+    | '/admin/users'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -278,6 +288,7 @@ export interface FileRouteTypes {
     | '/admin/services'
     | '/admin/skills'
     | '/admin/testimonials'
+    | '/admin/users'
   id:
     | '__root__'
     | '/'
@@ -303,6 +314,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/services'
     | '/_authenticated/admin/skills'
     | '/_authenticated/admin/testimonials'
+    | '/_authenticated/admin/users'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -418,6 +430,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/testimonials': {
       id: '/_authenticated/admin/testimonials'
       path: '/testimonials'
@@ -494,6 +513,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminServicesRoute: typeof AuthenticatedAdminServicesRoute
   AuthenticatedAdminSkillsRoute: typeof AuthenticatedAdminSkillsRoute
   AuthenticatedAdminTestimonialsRoute: typeof AuthenticatedAdminTestimonialsRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
@@ -506,6 +526,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminServicesRoute: AuthenticatedAdminServicesRoute,
   AuthenticatedAdminSkillsRoute: AuthenticatedAdminSkillsRoute,
   AuthenticatedAdminTestimonialsRoute: AuthenticatedAdminTestimonialsRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
 }
 
 const AuthenticatedAdminRouteWithChildren =

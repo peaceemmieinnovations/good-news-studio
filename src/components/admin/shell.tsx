@@ -2,7 +2,7 @@ import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   LayoutDashboard, User, Briefcase, Smartphone, Wrench, Award,
-  Image as ImageIcon, FileText, MessageSquare, Star, LogOut, Menu, X, Code2
+  Image as ImageIcon, FileText, MessageSquare, Star, LogOut, Menu, X, Code2, Users,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
