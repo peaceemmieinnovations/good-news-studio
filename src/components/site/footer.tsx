@@ -10,9 +10,7 @@ export function SiteFooter({ profile }: { profile?: ProfileRow | null }) {
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <Link to="/" className="inline-flex items-center gap-2">
-              <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-primary shadow-glow">
-                <Code2 className="h-4 w-4 text-primary-foreground" />
-              </div>
+              <img src="/favicon.png" alt="Good News" className="h-9 w-9 rounded-lg drop-shadow-[0_0_12px_oklch(0.65_0.24_275/0.5)]" />
               <span className="font-[family-name:var(--font-display)] font-bold text-xl">Good News</span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground max-w-sm">
