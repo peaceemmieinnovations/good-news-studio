@@ -50,7 +50,7 @@ export function Hero({ profile }: { profile: ProfileRow | null }) {
 
   return (
     <section className="relative overflow-hidden pt-8 pb-20">
-      <div className="absolute inset-0 grid-bg pointer-events-none" />
+      
 
       {/* floating orbs */}
       <div className="absolute top-20 -left-20 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-float" />
