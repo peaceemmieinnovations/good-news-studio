@@ -38,6 +38,7 @@ function HomePage() {
   return (
     <SiteLayout profile={profile}>
       <Hero profile={profile} />
+      <Marquee items={["Mobile Apps", "Web Platforms", "AI Systems", "UI/UX", "APIs", "Automation", "SaaS"]} />
       <ServicesSection services={services ?? []} />
       <SkillsSection skills={skills ?? []} />
       <ProjectsSection projects={projects ?? []} />
