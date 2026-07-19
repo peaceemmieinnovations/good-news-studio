@@ -423,17 +423,17 @@ export function SectionHeader({ eyebrow, title, subtitle, align = "center" }: {
   eyebrow?: string; title: string; subtitle?: string; align?: "left" | "center";
 }) {
   return (
-    <div className={cn(align === "center" && "text-center", align === "center" && "mx-auto max-w-2xl")}>
+    <Reveal className={cn(align === "center" && "text-center", align === "center" && "mx-auto max-w-2xl")}>
       {eyebrow && (
         <div className={cn("text-xs uppercase tracking-[0.2em] font-semibold text-gradient", align === "center" && "text-center")}>
           {eyebrow}
         </div>
       )}
-      <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl md:text-5xl font-bold tracking-tight">
+      <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl md:text-6xl font-bold tracking-tight">
         {title}
       </h2>
       {subtitle && <p className="mt-4 text-muted-foreground text-lg">{subtitle}</p>}
-    </div>
+    </Reveal>
   );
 }
 
