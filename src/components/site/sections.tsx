@@ -8,6 +8,7 @@ import type {
   ProfileRow, ServiceRow, SkillRow, ProjectRow, TestimonialRow, AppRow, BlogPostRow
 } from "@/lib/queries";
 import { cn } from "@/lib/utils";
+import { AnimatedHeroCanvas, SplitText, Magnetic, Reveal, Marquee, Parallax } from "@/lib/motion";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Smartphone, Globe, Code2, Palette, Plug, Database, Zap,
