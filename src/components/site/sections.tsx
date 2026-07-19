@@ -50,14 +50,17 @@ export function Hero({ profile }: { profile: ProfileRow | null }) {
   ]);
 
   return (
-    <section className="relative overflow-hidden pt-8 pb-20">
-      
+    <section className="relative overflow-hidden pt-8 pb-20 min-h-[92vh] flex items-center">
+      {/* animated canvas backdrop */}
+      <div className="absolute inset-0 -z-10">
+        <AnimatedHeroCanvas />
+      </div>
 
-      {/* floating orbs */}
-      <div className="absolute top-20 -left-20 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-float" />
-      <div className="absolute bottom-10 -right-20 h-96 w-96 rounded-full bg-[oklch(0.62_0.24_300/0.15)] blur-3xl animate-float" style={{ animationDelay: "2s" }} />
+      {/* floating orbs (kept subtle over canvas) */}
+      <div className="absolute top-20 -left-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl animate-float pointer-events-none" />
+      <div className="absolute bottom-10 -right-20 h-96 w-96 rounded-full bg-[oklch(0.62_0.24_300/0.10)] blur-3xl animate-float pointer-events-none" style={{ animationDelay: "2s" }} />
 
-      <div className="relative mx-auto max-w-6xl px-4">
+      <div className="relative mx-auto max-w-6xl px-4 w-full">
         <div className="mx-auto max-w-3xl text-center">
           <div className="animate-fade-up inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium">
             <span className="relative flex h-2 w-2">
@@ -67,11 +70,11 @@ export function Hero({ profile }: { profile: ProfileRow | null }) {
             Available for new projects
           </div>
 
-          <h1 className="mt-6 animate-fade-up font-[family-name:var(--font-display)] text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.05]" style={{ animationDelay: "0.1s" }}>
-            Hi, I'm <span className="text-gradient animate-gradient bg-[length:200%_200%]">{profile?.name ?? "Good News"}</span>
+          <h1 className="mt-6 font-[family-name:var(--font-display)] text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.05]">
+            <SplitText>{`Hi, I'm ${profile?.name ?? "Good News"}`}</SplitText>
           </h1>
 
-          <div className="mt-6 h-10 animate-fade-up text-2xl sm:text-3xl font-medium text-muted-foreground" style={{ animationDelay: "0.2s" }}>
+          <div className="mt-6 h-10 animate-fade-up text-2xl sm:text-3xl font-medium text-muted-foreground" style={{ animationDelay: "0.6s" }}>
             I build{" "}
             <span className="text-gradient font-semibold">
               {word}
@@ -79,41 +82,47 @@ export function Hero({ profile }: { profile: ProfileRow | null }) {
             </span>
           </div>
 
-          <p className="mt-6 animate-fade-up mx-auto max-w-xl text-lg text-muted-foreground" style={{ animationDelay: "0.3s" }}>
+          <p className="mt-6 animate-fade-up mx-auto max-w-xl text-lg text-muted-foreground" style={{ animationDelay: "0.75s" }}>
             {profile?.tagline ?? "Building digital products that grow businesses."} From idea to launch, I ship polished software with obsessive attention to detail.
           </p>
 
-          <div className="mt-10 animate-fade-up flex flex-wrap items-center justify-center gap-3" style={{ animationDelay: "0.4s" }}>
-            <Link
-              to="/contact"
-              className="group inline-flex items-center gap-2 rounded-xl bg-gradient-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow hover:shadow-glow-lg hover:scale-[1.02] transition-all"
-            >
-              Hire Me
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold hover:bg-surface transition-all"
-            >
-              View Projects
-            </Link>
-            <Link
-              to="/apps"
-              className="inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold hover:bg-surface transition-all"
-            >
-              <Download className="h-4 w-4" />
-              Download App
-            </Link>
+          <div className="mt-10 animate-fade-up flex flex-wrap items-center justify-center gap-3" style={{ animationDelay: "0.9s" }}>
+            <Magnetic>
+              <Link
+                to="/contact"
+                className="group inline-flex items-center gap-2 rounded-xl bg-gradient-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow hover:shadow-glow-lg transition-all"
+              >
+                Hire Me
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </Magnetic>
+            <Magnetic>
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold hover:bg-surface transition-all"
+              >
+                View Projects
+              </Link>
+            </Magnetic>
+            <Magnetic>
+              <Link
+                to="/apps"
+                className="inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold hover:bg-surface transition-all"
+              >
+                <Download className="h-4 w-4" />
+                Download App
+              </Link>
+            </Magnetic>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="mt-20 animate-fade-up grid grid-cols-2 md:grid-cols-4 gap-4" style={{ animationDelay: "0.5s" }}>
+        <Reveal className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4">
           <StatCard label="Years Experience" value={profile?.years_experience ?? 5} suffix="+" />
           <StatCard label="Projects Shipped" value={profile?.projects_completed ?? 50} suffix="+" />
           <StatCard label="Happy Clients" value={profile?.happy_clients ?? 30} suffix="+" />
           <StatCard label="Technologies" value={20} suffix="+" />
-        </div>
+        </Reveal>
       </div>
     </section>
   );
