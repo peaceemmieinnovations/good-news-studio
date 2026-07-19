@@ -9,6 +9,7 @@ import {
   Hero, ServicesSection, SkillsSection, ProjectsSection,
   TestimonialsSection, AppsPreview, BlogPreview, CtaSection,
 } from "@/components/site/sections";
+import { Marquee } from "@/lib/motion";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
