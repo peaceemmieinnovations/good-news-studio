@@ -9,6 +9,7 @@ import {
   Hero, ServicesSection, SkillsSection, ProjectsSection,
   TestimonialsSection, AppsPreview, BlogPreview, CtaSection,
 } from "@/components/site/sections";
+import { Marquee } from "@/lib/motion";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
@@ -37,6 +38,7 @@ function HomePage() {
   return (
     <SiteLayout profile={profile}>
       <Hero profile={profile} />
+      <Marquee items={["Mobile Apps", "Web Platforms", "AI Systems", "UI/UX", "APIs", "Automation", "SaaS"]} />
       <ServicesSection services={services ?? []} />
       <SkillsSection skills={skills ?? []} />
       <ProjectsSection projects={projects ?? []} />
